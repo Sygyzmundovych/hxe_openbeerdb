@@ -1,0 +1,38 @@
+ID: codejamgeo
+_schema-version: '2.0'
+version: 0.0.2
+modules:
+  - name: webui
+    type: html5
+    path: webui
+    requires:
+      - name: js_api
+        group: destinations
+        properties:
+          name: core-backend
+          url: '~{url}'
+          forwardAuthToken: true
+  - name: vitaldb
+    type: hdb
+    path: vitaldb
+    requires:
+      - name: hdi_vitaldb
+  - name: js
+    type: nodejs
+    path: js
+    provides:
+      - name: js_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: hdi_vitaldb
+      - name: vitaldb
+resources:
+  - name: hdi_data
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
+  - name: hdi_vitaldb
+    properties:
+      hdi-container-name_2: '${service-name}'
+    type: com.sap.xs.hdi-container

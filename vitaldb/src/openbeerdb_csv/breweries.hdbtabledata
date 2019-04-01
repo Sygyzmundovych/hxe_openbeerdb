@@ -1,0 +1,23 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "codejamgeo.vitaldb::main.breweries",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "codejamgeo.vitaldb.openbeerdb_csv::breweries.csv",
+				"dialect": "HANA",
+                "has_header": true
+            }
+        },
+        {
+            "target_table": "codejamgeo.vitaldb::main.breweries_geocode",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "codejamgeo.vitaldb.openbeerdb_csv::breweries_geocode.csv",
+				"dialect": "HANA",
+                "has_header": true
+            }
+        }
+    ]
+}

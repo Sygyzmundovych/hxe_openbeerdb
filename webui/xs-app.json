@@ -1,0 +1,10 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "none",
+	"routes": [{
+		"source": "(.*)(.xsjs)",
+		"destination": "core-backend",
+		"csrfProtection": false,
+		"authenticationType": "none"
+	}]
+}

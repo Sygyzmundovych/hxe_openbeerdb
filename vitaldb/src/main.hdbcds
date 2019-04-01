@@ -1,0 +1,45 @@
+namespace codejamgeo.vitaldb;
+
+context main {
+    entity breweries_geocode {
+        key id            : Integer        not null;
+            brewery_id    : Integer        not null;
+            latitude      : Decimal(10, 4) not null;
+            longitude     : Decimal(10, 4) not null;
+            accuracy      : String(64);
+            country       : String(128);
+            geocodestatus : String(32);
+    };
+
+    entity breweries {
+        key id        : Integer     not null;
+            name      : String(128) not null;
+            address1  : String(256);
+            address2  : String(256);
+            city      : String(128);
+            state     : String(128);
+            code      : String(128);
+            country   : String(128);
+            phone     : String(64);
+            website   : String(256);
+            filepath  : String(256);
+            descript  : String(5000);
+            last_mod  : UTCDateTime;
+            location  : hana.ST_POINT(4326);
+            gcstatus  : String(32);
+            gcloctype : String(32);
+            latitude  : Decimal(9, 6);
+            longitude : Decimal(9, 6);
+    };
+
+    view breweries_geoview as
+        select from breweries_geocode
+        {
+            id,
+            brewery_id,
+            latitude,
+            longitude,
+            accuracy,
+            new st_point('POINT (' || "longitude" || ' ' || "latitude" || ')', 4326) as "geopoint"
+        };
+};
