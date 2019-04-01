@@ -27,6 +27,9 @@ modules:
     requires:
       - name: hdi_vitaldb
       - name: vitaldb
+
+  
+
 resources:
   - name: hdi_data
     properties:

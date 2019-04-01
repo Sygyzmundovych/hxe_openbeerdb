@@ -1,7 +1,10 @@
 "use strict";
 
+$.import("keys","google");
+
 var startTime = new Date().getTime();
-var apikey = "AIzaSyAV31oB5fuBLVprCpW3W0kvVu3Q0TABs9U";
+var apikey = $.keys.google.mapsKey;
+console.log("API key is: ", apikey);
 
 var conn = $.hdb.getConnection();
 var querySelect = 'SELECT TOP 1 "id", "name", "address1", "address2", "city", "state", "code", "country"' +
