@@ -4,7 +4,7 @@ $.import("keys","google");
 
 var startTime = new Date().getTime();
 var apikey = $.keys.google.mapsKey;
-console.log("API key is: ", apikey);
+//console.log("API key is: ", apikey);
 
 var conn = $.hdb.getConnection();
 var querySelect = 'SELECT TOP 1 "id", "name", "address1", "address2", "city", "state", "code", "country"' +
@@ -14,7 +14,7 @@ var queryUpdate = 'UPDATE "codejamgeo.vitaldb::main.breweries"' +
 var queryUpdateUnsuccessful = 'UPDATE "codejamgeo.vitaldb::main.breweries"' + ' SET "gcstatus" = ?' + ' WHERE "id" = ?';
 
 var rs = conn.executeQuery(querySelect);
-console.log(rs);
+//console.log(rs);
 
 var body = "";
 var addressToQuery = "";
@@ -31,11 +31,11 @@ for (var i = 0; i < rs.length; i++) {
 
 	var client = new $.net.http.Client();
 	var workingUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressToQuery + "&key=" + apikey;
-	console.log("URL: ", workingUrl);
+	//console.log("URL: ", workingUrl);
 	client.request($.net.http.GET, workingUrl);
 	var response = client.getResponse();
-	console.log("Response is: ", response);
-	console.log("Response body result is: ", response.body.result);
+	//console.log("Response is: ", response);
+	//console.log("Response body result is: ", response.body.result);
 
 	if (response.status === 200) {
 		var geoData = JSON.parse(response.body.asString());
@@ -49,7 +49,7 @@ for (var i = 0; i < rs.length; i++) {
 			recsUpdated += nrrecs;
 			body += JSON.stringify(geoData.results[0].geometry.location) + " " + geoData.results[0].geometry.location_type;
 		} else if (geoData.status === "REQUEST_DENIED") {
-			body += " " + geoData.status + " Check your API key!";
+			body += " " + geoData.status + " <-- Check your API key!";
 		} else {
 			var nrrecs = conn.executeUpdate(queryUpdateUnsuccessful, geoData.status, rs[i].id);
 			conn.commit();
